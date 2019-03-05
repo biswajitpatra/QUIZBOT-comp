@@ -49,8 +49,8 @@ def parse_results(html, keyword,ans):
             descriptions = description.get_text()
             if link != '#' and rank < 3:
                 #found_results.append({'keyword': keyword,'rank': rank, '\ntitle': title, '\ndescription': description})
-                #found_results.append(descriptions)
-                found_results.append(" ".join(filter(lambda w: not w in stopwords,descriptions.split())))
+                found_results.append(descriptions)
+                #found_results.append(" ".join(filter(lambda w: not w in stopwords,descriptions.split())))
                 print(crayons.white(title))
                 data=[b.string for b in description.find_all('b') if b.string!="..."]
                 major[ans]+=len(data)

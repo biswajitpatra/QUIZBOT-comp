@@ -7,8 +7,27 @@ import re
 ip='127.0.0.1'
 port=12345
 
-def parse_result(html,soc):
-   soup=BeautifulSoup(html,'html.parser')
+def wparse_result(link,soc):
+   pass
+
+def gparse_result(bsoup,soc):
+   result_blocks=bsoup.find_all('div',attrs={'class':'g'})
+   wlinks=[]
+   bdata=[]
+   print('finding')
+   for result in result_blocks:
+        link = result.find('a', href=True)
+        title = result.find('h3', attrs={'class': 'r'})
+        description = result.find('span', attrs={'class': 'st'})
+        if link and title and description:
+                wlinks.append(link['href'])
+                title=title.get_text()
+                decp=description.get_text()
+                bdata=[b.string() for b in decp.find_all('b') if b.string!="..."]
+                decp=decp.split[" ... "]
+                
+        
+        
    
 question=""
 answers=['','','']
@@ -28,6 +47,7 @@ while True:
            for x in range(3):
                answers[x]=ind[x+1]
            print("Got a question from main server\n"+question,answers[0],answers[1],answers[2])
+
            search = " "+question +" \""+ answers[0]+"\""
            print(search)
            r = requests.get("https://www.google.com/search", params={'q':search})
@@ -43,8 +63,8 @@ while True:
               res = soup.find("div", {"id": "resultStats"})
               print(res)
               s.sendall(res.get_text().encode())
-                    
-           parse_result(r.texr,s)
+              gparse_result(soup,s)      
+           
            s.sendall("Q".encode())
    except Exception as e:
         print(">>>>>>connection retrying new QUESTION "+str(e))
