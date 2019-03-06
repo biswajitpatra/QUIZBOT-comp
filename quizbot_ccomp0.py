@@ -43,6 +43,7 @@ def parse_results(html, keyword,ans):
         #data=[b.string for b in soup.findall('b')]
         #print(data)
         if link and title and description:
+            
             link = link['href']
             title = title.get_text()
             #print(description)

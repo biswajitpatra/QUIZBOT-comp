@@ -4,12 +4,14 @@ import socketserver
 import matplotlib.pyplot as plt
 import numpy as np
 
+
+#TODO: handle not cases
 lock=threading.Lock()
 
 data=''
 points=[0,0,0]
 qc=[0,0,0,0]
-label=['','','']
+label=['getting data','getting data','getting data']
 plt.ion()
 
 def plotshow():
@@ -19,9 +21,9 @@ def plotshow():
     while True:
         color=['blue','blue','blue']
         color[points.index(max(points))]='green'
-        plt.bar(x=[0,2,4],height=points,color=color,tick_label=label)
+        plt.bar(x=[0,4,8],height=points,color=color,tick_label=label)
         plt.draw()
-        plt.pause(1)
+        plt.pause(0.0001)
         plt.clf()
 
 
@@ -72,6 +74,8 @@ def sortingcomputer(conn,mode):
                      if(inpfc=='-'):
                        points[int(mode)-1]=-10
                      label[int(mode)-1]=inpfc
+              elif inpd=="C":
+                  continue
               else:
                    print("["+mode+"] computer ->",inpd)
                    if(qc[int(mode)]==1):
